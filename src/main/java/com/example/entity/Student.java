@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// 简化getter和setter方法
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
