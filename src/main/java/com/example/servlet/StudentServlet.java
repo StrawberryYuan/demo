@@ -25,10 +25,10 @@ public class StudentServlet extends HttpServlet {
       List<Student> students = dao.findAll();
       // 构造 Layui 所需格式
       Map<String, Object> result = new HashMap<>();
-      result.put("code", 0);              // 状态码必须是 0
-      result.put("msg", "");              // 可选提示信息
-      result.put("count", students.size()); // 数据总数（如果分页，这里应是总记录数）
-      result.put("data", students);       // 数据数组
+      result.put("code", 0);
+      result.put("msg", "");
+      result.put("count", students.size());
+      result.put("data", students);
 
       mapper.writeValue(resp.getWriter(), result);
     } catch (Exception e) {

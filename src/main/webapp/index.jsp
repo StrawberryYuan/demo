@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>StudentGrades</title>
+    <title>学生成绩</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/layui@2.8.15/dist/css/layui.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
 
 <!-- 工具条模板 -->
 <script type="text/html" id="toolbarDemo">
-    <button class="layui-btn layui-btn-sm" lay-event="add">Add</button>
+    <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
 </script>
 
 <!-- 表单模板 -->
@@ -19,39 +19,39 @@
     <form class="layui-form" lay-filter="studentForm" style="padding: 20px;">
         <input type="hidden" name="id">
         <div class="layui-form-item">
-            <label class="layui-form-label">Name</label>
+            <label class="layui-form-label">姓名</label>
             <div class="layui-input-block">
                 <input type="text" name="name" required lay-verify="required"
-                       placeholder="Enter name" class="layui-input">
+                       placeholder="输入姓名" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">Gender</label>
+            <label class="layui-form-label">性别</label>
             <div class="layui-input-block">
                 <select name="gender" required>
-                    <option value="">Please select</option>
-                    <option value="Male">男</option>
-                    <option value="Female">女</option>
+                    <option value="">请选择</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">Age</label>
+            <label class="layui-form-label">年龄</label>
             <div class="layui-input-block">
-                <input type="number" name="age" required lay-verify="number" placeholder="Enter age"
+                <input type="number" name="age" required lay-verify="number" placeholder="输入年龄"
                        class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">Score</label>
+            <label class="layui-form-label">绩点</label>
             <div class="layui-input-block">
                 <input type="text" name="score" required lay-verify="required"
-                       placeholder="Enter score" class="layui-input">
+                       placeholder="输入绩点" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="submitStudentForm">Submit</button>
+                <button class="layui-btn" lay-submit lay-filter="submitStudentForm">提交</button>
             </div>
         </div>
     </form>
@@ -71,16 +71,16 @@
       toolbar: '#toolbarDemo',
       cols: [[
         {field: 'id', title: 'ID', width: 60},
-        {field: 'name', title: 'Name'},
-        {field: 'gender', title: 'Gender'},
-        {field: 'age', title: 'Age'},
-        {field: 'score', title: 'Score'},
+        {field: 'name', title: '姓名'},
+        {field: 'gender', title: '性别'},
+        {field: 'age', title: '年龄'},
+        {field: 'score', title: '绩点'},
         {
-          title: 'Operate', width: 160, templet: function (d) {
+          title: '操作', width: 160, templet: function (d) {
             return [
-              '<button class="layui-btn layui-btn-xs" onclick="edit(' + d.id + ')">Edit</button>',
+              '<button class="layui-btn layui-btn-xs" onclick="edit(' + d.id + ')">编辑</button>',
               '<button class="layui-btn layui-btn-danger layui-btn-xs" onclick="del(' + d.id
-              + ')">Delete</button>'
+              + ')">删除</button>'
             ].join('');
           }
         }
@@ -104,7 +104,7 @@
     // 点击工具栏 Add 按钮
     table.on('toolbar(studentFilter)', function (obj) {
       if (obj.event === 'add') {
-        openStudentForm('Add Student');
+        openStudentForm('添加学生');
       }
     });
 
@@ -114,7 +114,7 @@
           .then(res => res.json())
           .then(data => {
             const student = data.data.find(item => item.id === id);
-            openStudentForm('Edit Student', student);
+            openStudentForm('编辑学生信息', student);
           });
     };
 
