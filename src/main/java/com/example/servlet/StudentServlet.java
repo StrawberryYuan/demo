@@ -23,7 +23,6 @@ public class StudentServlet extends HttpServlet {
     resp.setContentType("application/json;charset=UTF-8");
     try {
       List<Student> students = dao.findAll();
-      // 构造 Layui 所需格式
       Map<String, Object> result = new HashMap<>();
       result.put("code", 0);
       result.put("msg", "");
