@@ -3,7 +3,7 @@
 <%
     JXYGrade grade = (JXYGrade) request.getAttribute("grade");
     if (grade == null) {
-        response.sendRedirect("grade?op=listAll&msg=未找到成绩记录");
+        response.sendRedirect(request.getContextPath() + "/grade?op=listAll&msg=未找到成绩记录");
         return;
     }
 %>
@@ -18,7 +18,8 @@
 <div class="container mt-4">
     <h3 class="mb-4">编辑成绩</h3>
 
-    <form action="grade?op=update" method="post">
+    <form action="<%= request.getContextPath() %>/grade" method="post">
+        <input type="hidden" name="op" value="update">
         <input type="hidden" name="id" value="<%= grade.getId() %>">
 
         <div class="mb-3">
@@ -38,21 +39,21 @@
 
         <div class="mb-3">
             <label class="form-label">平时成绩</label>
-            <input type="number" class="form-control" name="dailyScore" value="<%= grade.getDailyScore() %>" step="0.1" required>
+            <input type="number" class="form-control" name="dailyScore" value="<%= grade.getDailyScore() %>" step="0.01" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">期中成绩</label>
-            <input type="number" class="form-control" name="midtermScore" value="<%= grade.getMidtermScore() %>" step="0.1" required>
+            <label class="form-label">阶段成绩</label>
+            <input type="number" class="form-control" name="midtermScore" value="<%= grade.getMidtermScore() %>" step="0.01" required>
         </div>
 
         <div class="mb-3">
             <label class="form-label">期末成绩</label>
-            <input type="number" class="form-control" name="finalScore" value="<%= grade.getFinalScore() %>" step="0.1" required>
+            <input type="number" class="form-control" name="finalScore" value="<%= grade.getFinalScore() %>" step="0.01" required>
         </div>
 
         <button type="submit" class="btn btn-primary">提交修改</button>
-        <a href="grade?op=listAll" class="btn btn-secondary ms-2">返回</a>
+        <a href="<%= request.getContextPath() %>/grade?op=listAll" class="btn btn-secondary ms-2">返回</a>
     </form>
 </div>
 </body>

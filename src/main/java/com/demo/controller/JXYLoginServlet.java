@@ -22,14 +22,17 @@ public class JXYLoginServlet extends HttpServlet {
     JXYUser user = dao.login(username, password);
 
     if (user != null) {
-      // ✅ 登录成功：写入 session
       HttpSession session = req.getSession();
       session.setAttribute("user", user);
 
-      resp.sendRedirect("JXYindex.jsp");
-    } else {
-      // ❌ 登录失败：跳回登录页
-      resp.sendRedirect("JXYlogin.jsp?msg=用户名或密码错误");
+      // 根据身份跳转到不同首页
+      if ("teacher".equals(user.getUserType())) {
+        resp.sendRedirect("JXYindex.jsp");
+      } else if ("student".equals(user.getUserType())) {
+        resp.sendRedirect("grade?op=list&studentId=" + user.getId());
+      } else {
+        resp.sendRedirect("JXYindex.jsp"); // 默认跳转页
+      }
     }
   }
 }

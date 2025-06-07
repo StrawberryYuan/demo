@@ -5,7 +5,7 @@
 <%
   JXYUser user = (JXYUser) session.getAttribute("user");
   if (user == null || !"teacher".equals(user.getUserType())) {
-    response.sendRedirect("/JXYlogin.jsp");
+    response.sendRedirect(request.getContextPath() + "/JXYlogin.jsp");
     return;
   }
 
@@ -24,11 +24,11 @@
   <h2>欢迎您，<%= user.getUsername() %>，教师成绩管理</h2>
 
   <% if (msg != null) { %>
-  <div class="alert alert-info mt-3"><%= msg %></div>
+  <div class="alert alert-success mt-3"><%= msg %></div>
   <% } %>
 
   <!-- 成绩新增表单 -->
-  <form class="row g-3 bg-white p-4 rounded shadow-sm mt-4" action="../grade" method="post">
+  <form class="row g-3 bg-white p-4 rounded shadow-sm mt-4" action="<%= request.getContextPath() %>/grade" method="post">
     <input type="hidden" name="op" value="add" />
     <h5>添加学生成绩</h5>
 
@@ -90,8 +90,8 @@
         <td><%= g.getMidtermScore() %></td>
         <td><%= g.getFinalScore() %></td>
         <td>
-          <a href="../grade?op=edit&id=<%= g.getId() %>" class="btn btn-sm btn-warning me-1">编辑</a>
-          <a href="../grade?op=delete&id=<%= g.getId() %>" class="btn btn-sm btn-danger" onclick="return confirm('确认删除？')">删除</a>
+          <a href="<%= request.getContextPath() %>/grade?op=edit&id=<%= g.getId() %>" class="btn btn-sm btn-warning me-1">编辑</a>
+          <a href="<%= request.getContextPath() %>/grade?op=delete&id=<%= g.getId() %>" class="btn btn-sm btn-danger" onclick="return confirm('确认删除？')">删除</a>
         </td>
       </tr>
       <%  }

@@ -27,7 +27,10 @@ public class JXYGradeServlet extends HttpServlet {
       g.setFinalScore(Double.parseDouble(req.getParameter("finalScore")));
 
       boolean result = service.addGrade(g);
-      resp.sendRedirect("grade?op=listAll&msg=" + (result ? "添加成功" : "添加失败"));
+      List<JXYGrade> list = service.getAllGrades();
+      req.setAttribute("grades", list);
+      req.setAttribute("msg", result ? "添加成功" : "添加失败");
+      req.getRequestDispatcher("/JXYmanageGrades.jsp").forward(req, resp);
 
     } else if ("update".equals(op)) {
       JXYGrade g = new JXYGrade();
@@ -39,7 +42,10 @@ public class JXYGradeServlet extends HttpServlet {
       g.setFinalScore(Double.parseDouble(req.getParameter("finalScore")));
 
       boolean result = service.updateGrade(g);
-      resp.sendRedirect("grade?op=listAll&msg=" + (result ? "修改成功" : "修改失败"));
+      List<JXYGrade> list = service.getAllGrades();
+      req.setAttribute("grades", list);
+      req.setAttribute("msg", result ? "修改成功" : "修改失败");
+      req.getRequestDispatcher("/JXYmanageGrades.jsp").forward(req, resp);
     }
   }
 
@@ -48,14 +54,12 @@ public class JXYGradeServlet extends HttpServlet {
     String op = req.getParameter("op");
 
     if ("list".equals(op)) {
-      // 学生查看自己的成绩
       int studentId = Integer.parseInt(req.getParameter("studentId"));
       List<JXYGrade> list = service.getGradesByStudent(studentId);
       req.setAttribute("grades", list);
       req.getRequestDispatcher("/JXYviewGrades.jsp").forward(req, resp);
 
     } else if ("listAll".equals(op)) {
-      // 教师查看所有学生成绩
       List<JXYGrade> list = service.getAllGrades();
       req.setAttribute("grades", list);
       req.getRequestDispatcher("/JXYmanageGrades.jsp").forward(req, resp);
@@ -63,14 +67,16 @@ public class JXYGradeServlet extends HttpServlet {
     } else if ("delete".equals(op)) {
       int id = Integer.parseInt(req.getParameter("id"));
       boolean result = service.deleteGrade(id);
-      resp.sendRedirect("grade?op=listAll&msg=" + (result ? "删除成功" : "删除失败"));
+      List<JXYGrade> list = service.getAllGrades();
+      req.setAttribute("grades", list);
+      req.setAttribute("msg", result ? "删除成功" : "删除失败");
+      req.getRequestDispatcher("/JXYmanageGrades.jsp").forward(req, resp);
 
     } else if ("edit".equals(op)) {
-      // 准备成绩编辑页面
       int id = Integer.parseInt(req.getParameter("id"));
       JXYGrade grade = service.getGradeById(id);
       req.setAttribute("grade", grade);
-      req.getRequestDispatcher("/JXYJXYeditGrade.jsp").forward(req, resp);
+      req.getRequestDispatcher("/JXYeditGrade.jsp").forward(req, resp);
     }
   }
 }
